@@ -9,10 +9,10 @@
 
     <script>
       //javascript code
-      (function() {
+
+      function() {
       var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       window.requestAnimationFrame = requestAnimationFrame;})();
-
       var canvas = document.getElementById("canvas"),
           ctx = canvas.getContext("2d"),
           width = 500, height = 300,
@@ -29,6 +29,13 @@
 
       canvas.width = width;
       canvas.height = height;
+
+      function obstacle() {
+        var myObstacle = new component(200, 10, green, 120, 300);
+      }
+
+
+
 
       function update(){
         // check keys
@@ -69,7 +76,7 @@
         ctx.fillStyle = "red";
         ctx.fillRect(player.x, player.y, player.width, player.height);
 
-        
+
 
         requestAnimationFrame(update);
       }
