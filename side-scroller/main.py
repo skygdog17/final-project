@@ -29,7 +29,7 @@ class MainHandler(webapp2.RequestHandler):
 
 class SignInHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('templates/'#sign in html goes here)
+        template = jinja_environment.get_template('templates/sign_in.html')
         self.response.out.write(template.render())
 
 class PlayHandler(webapp2.RequestHandler):
@@ -39,7 +39,7 @@ class PlayHandler(webapp2.RequestHandler):
 
 class CreateUserHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template('templates/'#create user html goes here)
+        template = jinja_environment.get_template('templates/create_user.html')
         self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([
