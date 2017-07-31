@@ -15,11 +15,36 @@
 # limitations under the License.
 #
 import webapp2
+import jinja2
+import os
+from google.appengine.ext import ndb
+
+jinja_environment = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        template = jinja_environment.get_template('templates/homepage.html')
+        self.response.out.write(template.render())
+
+class SignInHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template(#sign in html goes here)
+        self.response.out.write(template.render())
+
+class PlayHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template(#play html goes here)
+        self.response.out.write(template.render())
+
+class CreateUserHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template(#create user html goes here)
+        self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/sign-in', SignInHandler),
+    ('/play', PlayHandler),
+    ('create-user', CreateUserHandler)
 ], debug=True)
