@@ -29,17 +29,17 @@ class MainHandler(webapp2.RequestHandler):
 
 class SignInHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template(#sign in html goes here)
+        template = jinja_environment.get_template('templates/'#sign in html goes here)
         self.response.out.write(template.render())
 
 class PlayHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template(#play html goes here)
+        template = jinja_environment.get_template('templates/game.html')
         self.response.out.write(template.render())
 
 class CreateUserHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja_environment.get_template(#create user html goes here)
+        template = jinja_environment.get_template('templates/'#create user html goes here)
         self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([
