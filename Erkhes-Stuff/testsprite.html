@@ -2,10 +2,12 @@
 <html>
   <head>
     </style>
-    <title>CSSI Game :)</title>
+    <title>testing!@@</title>
   </head>
   <body>
-    <center><canvas id="canvas" style="border:1px solid #000"></canvas></center>
+    <center><canvas id="gamecanvas" style="border:1px solid #000"></canvas></center>
+    <img src = "images/8_Bit_Mario.png" id = "mario">
+    <script src = "moveright.js"></script>
 
     <script>
       //javascript code
@@ -13,9 +15,11 @@
       var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       window.requestAnimationFrame = requestAnimationFrame;})();
 
-      var canvas = document.getElementById("canvas"),
+      var canvas = document.getElementById("gamecanvas"),
           ctx = canvas.getContext("2d"),
+          img = document.getElementById("mario");
           width = 500, height = 300,
+
           player = {x : width/2, y : height - 20,//coordinates
             width : 20, height : 20,
             speed: 5,
@@ -65,11 +69,11 @@
               player.jumping = false;
           }
 
-        ctx.clearRect(0,0,width,height);
-        ctx.fillStyle = "red";
-        ctx.fillRect(player.x, player.y, player.width, player.height);
-
-        
+        // ctx.clearRect(0,0,width,height);
+        // ctx.fillStyle = "red";
+        // ctx.fillRect(player.x, player.y, player.width, player.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); //clears drawing
+        ctx.drawImage(img,player.x,player.y,player.width,player.height);
 
         requestAnimationFrame(update);
       }
