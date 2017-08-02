@@ -149,7 +149,7 @@ class CreateUserHandler(webapp2.RequestHandler):
                     self.response.out.write("<br> You're already logged in why don't you play the game?")
         else:
             template = jinja_environment.get_template('templates/create_user.html')
-            self.response.out.write(template.render())
+            self.response.write(template.render())
     def post(self):
         request_user = self.request.get("new_user")
         request_password = self.request.get("password_c1")
