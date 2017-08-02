@@ -1,0 +1,24 @@
+body{
+  background-color: lightblue;
+  color:darkgreen;
+}
+img{
+  margin-left: 30%;
+}
+h1{
+  margin-left: 44%;
+  font-family: 'Aclonica';
+  font-size: 38px;
+}
+form{
+  margin-left: 40%;
+  font-family: 'Aclonica';
+  font-size: 18px;
+}
+button{
+  margin-left:95px;
+  border-radius: 30%;
+  padding-left: :15px;
+  padding-right: 15px;
+  font:20px;
+}
