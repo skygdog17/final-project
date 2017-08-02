@@ -1,35 +1,9 @@
-
 body{
-  background-color: black;
-  background-size: cover;
-  color:white;
+  background-color: #EDE09F;
 }
-form{
-align-content: center;
-padding-left: 36%;
-color:white;
+img{
+  margin-left: 30%;
 }
-h1{
-  padding-top:20%;
-  padding-bottom: 4%;
-  color :white;
-  margin-left: 36%;
-}
-button{
-  margin-left:40%;
-  display: block;
-  margin:10px;
-  opacity:0.8;
+p{
 
-}
-#create_user{
-  padding-top:20px;
-  color:red;
-}
-
-#header{
-  padding-bottom: 10px;
-}
-#text{
-  padding-left: 36%;
 }
