@@ -1,0 +1,35 @@
+
+body{
+  background-image: url('http://www.myfreetextures.com/wp-content/uploads/2011/06/2008-07-16_IMGP7585b.jpg');
+  background-size: cover;
+  color:white;
+}
+form{
+align-content: center;
+padding-left: 36%;
+color:white;
+}
+h1{
+  padding-top:20%;
+  padding-bottom: 4%;
+  color :white;
+  margin-left: 36%;
+}
+button{
+  margin-left:40%;
+  display: block;
+  margin:10px;
+  opacity:0.8;
+
+}
+#create_user{
+  padding-top:20px;
+  color:red;
+}
+
+#header{
+  padding-bottom: 10px;
+}
+#text{
+  padding-left: 36%;
+}
