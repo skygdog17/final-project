@@ -14,13 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import webapp2
 import jinja2
+import datetime
 import os
+import webapp2
+import logging
 from google.appengine.ext import ndb
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+class CurrentUser(ndb.Model):
+    current_username = ndb.StringProperty()
+    accessed = ndb.DateTimeProperty()
+
+class User(ndb.Model):
+    username = ndb.StringProperty()
+    password = ndb.StringProperty()
+    e_mail = ndb.StringProperty()
+    scores = ndb.IntegerProperty(repeated=True)
+    high_score = ndb.IntegerProperty()
+    character = ndb.StringProperty()
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -46,5 +60,5 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/sign-in', SignInHandler),
     ('/play', PlayHandler),
-    ('create-user', CreateUserHandler)
+    ('/create-user', CreateUserHandler)
 ], debug=True)
