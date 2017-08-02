@@ -165,7 +165,8 @@ class CreateUserHandler(webapp2.RequestHandler):
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
-            template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+            template = jinja_environment.get_template('templates/homepage.html')
+            # template = jinja_environment.get_template('Erkhes-Stuff/game.html')
             self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/create_user.html')
