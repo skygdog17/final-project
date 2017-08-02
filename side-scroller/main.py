@@ -19,11 +19,11 @@ import datetime
 import os
 import webapp2
 import logging
-import imp
+# import imp
 from google.appengine.ext import ndb
 
-jinja_environment = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+jinja_environment = jinja2.Environment(loader=
+    jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 class CurrentUser(ndb.Model):
     current_username = ndb.StringProperty()
