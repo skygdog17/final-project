@@ -33,7 +33,8 @@ class User(ndb.Model):
     username = ndb.StringProperty()
     password = ndb.StringProperty()
     e_mail = ndb.StringProperty()
-    scores = ndb.IntegerProperty(repeated=True)
+    scores = ndb.IntegerProperty()
+    #(repeated=True)
     high_score = ndb.IntegerProperty()
     character = ndb.StringProperty()
 
@@ -83,6 +84,7 @@ class SignInHandler(webapp2.RequestHandler):
             template = jinja_environment.get_template('Erkhes-Stuff/game.html')
             self.response.write(template.render())
         else:
+            template = jinja_environment.get_template('templates/sign_in.html')
             yes["Correct"]="That's wrong."
             self.response.write(template.render(yes))
 
@@ -128,8 +130,9 @@ class PlayHandler(webapp2.RequestHandler):
                 self.response.write(current_man.current_username)
                 user_scores = User.query(User.username == current_man.current_username).fetch()
                 for user_score in user_scores:
-                    user_score.scores.append(45)
-                    user_score.high_score = 20
+                    if user_score.scores > user_score.high_score:
+                        user_score.high_score = user_score.scores
+                        user_score.put()
         # game.html = imp.load_source('game.html', '../Erkhes-Stuff/game.html')
         # print game.html.read()
         template = jinja_environment.get_template('Erkhes-Stuff/game.html')
@@ -155,13 +158,18 @@ class CreateUserHandler(webapp2.RequestHandler):
         request_password = self.request.get("password_c1")
         request_check = self.request.get("password_c2")
         request_character = self.request.get("character_type")
+        copy_users = User.query().fetch()
+        for copy_user in copy_users:
+            if request_user == copy_user.username:
+                self.response.write("Sorry. Taken!")
+                return
         if request_password == request_check:
             character_info = {
                 "user1": request_user,
                 "password1": request_password,
                 "character1": request_character
             }
-            new_guy = User(username = request_user, password = request_password, character = request_character, high_score = 0, scores = [])
+            new_guy = User(username = request_user, password = request_password, character = request_character, high_score = 0, scores = 0)
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
