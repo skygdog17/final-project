@@ -12,6 +12,12 @@ handlers:
 - url: /resources
   static_dir: static-folder
 
+- url: /js
+  static_dir: Erkhes-Stuff/js
+
+- url: /assets
+  static_dir: Erkhes-Stuff/assets
+
 - url: .*
   script: main.app
 
