@@ -8,6 +8,12 @@
     <form method=post>
       <p>Username: <input type="text" name="user_id"></p>
       <p>Password: <input type="text" name="pass_value"></p>
+      {% if Correct == False %}
+        <p>Sorry that username or password is incorrect. Please try again.</p>
+      {% endif %}
+      <a href="/forgot-password">Forgot your password?</a>
+      <br>
+      <br>
       <button type="submit">Log In!</button>
     </div>
     </form>
