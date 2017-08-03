@@ -8,9 +8,42 @@
   </style>
 </head>
 <body>
+  var ground = platforms.create(0, game.world.height - 32, 'ground');
+  ground.scale.setTo(2, 1);
+  ground.body.immovable = true;
+  <script>
+    var Room = function(x, y, scaleX, scaleY) {
+      this.x = x;
+      this.y = y;
+      this.scaleX = scaleX;
+      this.scaleY = scaleY;
+
+      this.platform = platforms.create(this.x, this.y, 'ground');
+      this.platform.scale.setTo(this.scaleX, this.scaleY);
+      this.platform.body.immovable = true;
+    };
+
+    Room.prototype.originalWidth = 400;
+    Room.prototype.originalHeight = 32;
+    Room.prototype.getX = function() {
+      return this.x;
+    };
+    Room.prototype.getY = function() {
+      return this.y;
+    };
+    Room.prototype.getWidth = function() {
+      return this.originalWidth * this.scaleX;
+    };
+    Room.prototype.getHeight = function() {
+      return this.originalHeight * this.scaleY;
+    };
+
+    new Room(30, 40, 1.55, 1.4)
+
+  </script>
 <script type="text/javascript">
 
-var game = new Phaser.Game(490, 490, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(480, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() { //our setup
     game.load.spritesheet('claus', 'assets/claus_sprite.png', 64, 64);
@@ -32,26 +65,69 @@ function preload() { //our setup
 
 	function create() {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
-    background = game.add.sprite(0,0,'sky');
-		background.scale.setTo(1.5,1.5)
+    background = game.add.sprite(-10,-20,'sky');
+		background.scale.setTo(1.55,1.55)
 		//creation of environment
     platforms = game.add.group();
+    //top and bottom
     platforms.enableBody = true;
     var ground = platforms.create(0, game.world.height - 32, 'ground');
     ground.scale.setTo(2, 1);
     ground.body.immovable = true;
-    var ledge = platforms.create(0, 65, 'ground');
-		ledge.scale.setTo(2,1);
+    var ledge = platforms.create(20, 17, 'ground');
+		ledge.scale.setTo(1,2);
     ledge.body.immovable = true;
-    ledge = platforms.create(-210, 300, 'ground');
+    //top mid
+    var ledge = platforms.create(270, 57, 'ground');
+    ledge.scale.setTo(.08,3.9);
     ledge.body.immovable = true;
-    ledge = platforms.create(290, 300, 'ground');
+
+    //right and left mid
+    ledge = platforms.create(-215, 280, 'ground');
     ledge.body.immovable = true;
+    ledge.scale.setTo(1,1.55)
+    ledge = platforms.create(290, 280, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(1,1.55)
+
+    //right and left y
+    ledge = platforms.create(0, 0, 'ground');
+    ledge.scale.setTo(.15,20)
+    ledge.body.immovable = true;
+    ledge = platforms.create(415, 0, 'ground');
+    ledge.scale.setTo(.15,20)
+    ledge.body.immovable = true;
+
+    //tv
+    ledge = platforms.create(170, 80, 'ground');
+    ledge.scale.setTo(.1,1)
+    ledge.body.immovable = true;
+
+    //table
+    ledge = platforms.create(140, 165, 'ground');
+    ledge.scale.setTo(.1,1.25)
+    ledge.body.immovable = true;
+
+    //plants TR, BR, BL
+    //tv
+    ledge = platforms.create(73, 90, 'ground');
+    ledge.scale.setTo(.08,.7)
+    ledge.body.immovable = true;
+    ledge = platforms.create(73, 417, 'ground');
+    ledge.scale.setTo(.08,.7)
+    ledge.body.immovable = true;
+    ledge = platforms.create(370, 417, 'ground');
+    ledge.scale.setTo(.08,.7)
+    ledge.body.immovable = true;
+
+
+
+
 		platforms.visible = false;
 
 
     // OUR HERO!!!
-    player = game.add.sprite(0, game.world.height - 150, 'claus');
+    player = game.add.sprite(215,400, 'claus');
 		player.scale.setTo(0.75,0.75);
     game.physics.enable(player);
     player.animations.add('left', [4, 5, 6, 7], 10, true);
@@ -80,11 +156,13 @@ function preload() { //our setup
 		stars = game.add.group();
     stars.enableBody = true;
 
-    //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 1; i < 10; i++)
+    //  Here we'll create 10
+    for (var i = 0; i < 3; i++)
     {
         //  Create a star inside of the 'stars' group
-        var star = stars.create(game.world.randomX-10, game.world.randomY-10, 'star');
+        var star = stars.create((Math.random()*200)+40 , (Math.random()*150)+80 , 'star');
+        // if (game.physics.arcade.overlap(star,platforms)) star.tint =  0.1 * 0xffffff;
+
     }
 		scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
@@ -95,7 +173,7 @@ function preload() { //our setup
 
 	//follows players around
 	function followPlayer(){
-			var ghost_speed = 30;
+			var ghost_speed = 60;
 			if(player.body.x < ghost.body.x){ghost.body.velocity.x = ghost_speed * -1;}
 			else{ghost.body.velocity.x = ghost_speed;}
 			if(player.body.y < ghost.body.y){ghost.body.velocity.y = ghost_speed * -1;}
@@ -104,15 +182,15 @@ function preload() { //our setup
 
 	function update() {
 		game.physics.arcade.collide(player, platforms);
-		game.physics.arcade.collide(stars, platforms);
+		//game.physics.arcade.collide(stars, platforms);
 
 	//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
 		game.physics.arcade.overlap(player, stars, collectStar, null, this);
-    game.physics.arcade.collide(player, platforms);
 
 	//cheskc to see if player overlaps with ghost
 		game.physics.arcade.overlap(player, ghost, die, null, this);
-		game.physics.arcade.collide(ghost, platforms );
+		//game.physics.arcade.collide(ghost, platforms );
+
 
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
