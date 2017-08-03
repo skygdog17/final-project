@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Spewky</title>
+  </head>
+  <body>
+    <h1>Welcome {{ user }}</h1>
+    <h3>High Score: {{ user_high_score }}</h3>
+    <h3>Total Wins: {{ user_wins }}</h3>
+    <h3>Total Deaths: {{ user_deaths }}</h3>
+    <form method=post>
+      <button>Play</button>
+    </form>
+    <form action="/leaderboard">
+      <button>Leaderboard</button>
+    </form>
+  </body>
+</html>
