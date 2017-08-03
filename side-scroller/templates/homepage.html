@@ -1,7 +1,8 @@
 <html>
   <head>
     <title>Game Name</title>
-    <link rel = "stylesheet" href="resources/homepage.css"/>
+    <link rel = "stylesheet" href="resources/create_user.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
   </head>
   <body>
     <!-- <h1 id = 'header'>WELCOME TO GAME<h1> -->
@@ -9,25 +10,28 @@
       <!-- <img id = 'play' src = 'http://ageofcavemen.com/wp-content/uploads/2016/02/button-300x176.png'
           alt='Play- Button' width = '300px' height = '115px'> -->
     <div class = 'a'>
-    <img  id = 'image' src = 'resources/spewky.png'>
-    <div id = button >
+    <img  id = 'spewky' src = 'resources/spewky.png'>
+    <div id = 'button' >
+
       <form action ="/play">
-        <button type="submit">Play!</button>
+        <button  id = 'homePageButtons' type="submit">Play!</button>
       </form>
+
       <form action ="/sign-in">
-        <button type="submit">Log In!</button>
-      </form>
+        <button id = 'homePageButtons' type="submit">Log In!</button>
+        </form>
+
       <form action = "/create-user">
-        <button type="submit">Sign Up!</button>
+        <button id = 'homePageButtons' type="submit">Sign Up!</button>
       </form>
     </div>
     </a>
     <div id = 'text'>
       <center><h2 class = 'first_text'>ABOUT US</h2></center>
-      <h5 class = 'second_text'> Lorem ipsum dolor sit amet, ex fugit denique senserit has.
+      <center> Lorem ipsum dolor sit amet, ex fugit denique senserit has.
                         In paulo sapientem pro, est labitur facilisis eu. Vis
-                        meliore insolens ut. Ne utamur nusquam percipitur quo.</h3>
+                        meliore insolens ut. Ne utamur nusquam percipitur quo.</center>
       </div>
-    </div>
+  <img id = 'claus' src = 'resources/claus_right.png'>
   </body>
 </html>

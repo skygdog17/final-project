@@ -8,10 +8,10 @@
   </style>
 </head>
 <body>
-  var ground = platforms.create(0, game.world.height - 32, 'ground');
+  <!-- var ground = platforms.create(0, game.world.height - 32, 'ground');
   ground.scale.setTo(2, 1);
-  ground.body.immovable = true;
-  <script>
+  ground.body.immovable = true; -->
+  <!-- <script>
     var Room = function(x, y, scaleX, scaleY) {
       this.x = x;
       this.y = y;
@@ -38,7 +38,7 @@
       return this.originalHeight * this.scaleY;
     };
 
-    new Room(30, 40, 1.55, 1.4)
+    new Room(30, 40, 1.55, 1.4) -->
 
   </script>
 <script type="text/javascript">
@@ -50,7 +50,7 @@ function preload() { //our setup
 		game.load.image('sky', 'assets/house.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('lightball', 'assets/lightball.png');
-		game.load.image('ghost' , 'assets/ghost2.png');
+		game.load.image('ghost' , 'assets/ghost.gif');
 		game.load.image('star' , 'assets/apple.gif')
 		}
 
@@ -62,6 +62,7 @@ function preload() { //our setup
 	var score = 0;
 	var scoreText;
 	var background;
+	var starCount = 0;
 
 	function create() {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -146,7 +147,7 @@ function preload() { //our setup
 		// ghost.scale.setTo(1.1,1.1);
 
 		ghost = game.add.sprite(400,200,'ghost');
-		ghost.scale.setTo(0.75,0.75);
+		ghost.scale.setTo(0.8,0.8);
 
 		ghost.enableBody = true;
 		game.physics.enable(ghost);
@@ -157,14 +158,15 @@ function preload() { //our setup
     stars.enableBody = true;
 
     //  Here we'll create 10
-    for (var i = 0; i < 3; i++)
-    {
-        //  Create a star inside of the 'stars' group
-        var star = stars.create((Math.random()*200)+40 , (Math.random()*150)+80 , 'star');
-        // if (game.physics.arcade.overlap(star,platforms)) star.tint =  0.1 * 0xffffff;
+    // while(starCount == 0)
+    // {
+    //     //  Create a star inside of the 'stars' grou
 
-    }
-		scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+		// 		starCount++;
+		// 		//if (game.physics.arcade.overlap(star,platforms)) star.tint =  0.1 * 0xffffff;
+		//
+		// }
+		scoreText = game.add.text(20, 30, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
@@ -173,23 +175,54 @@ function preload() { //our setup
 
 	//follows players around
 	function followPlayer(){
-			var ghost_speed = 60;
+			var ghost_speed = 30;
 			if(player.body.x < ghost.body.x){ghost.body.velocity.x = ghost_speed * -1;}
 			else{ghost.body.velocity.x = ghost_speed;}
-			if(player.body.y < ghost.body.y){ghost.body.velocity.y = ghost_speed * -1;}
+			if(player.body.y < ghost.body.y){ghost.body.velocity.y = ghost_speed * -0.4;}
 			else{ghost.body.velocity.y = ghost_speed;}
 	}
 
 	function update() {
 		game.physics.arcade.collide(player, platforms);
-		//game.physics.arcade.collide(stars, platforms);
+		game.physics.arcade.collide(stars, platforms);
 
 	//  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
 		game.physics.arcade.overlap(player, stars, collectStar, null, this);
 
 	//cheskc to see if player overlaps with ghost
 		game.physics.arcade.overlap(player, ghost, die, null, this);
-		//game.physics.arcade.collide(ghost, platforms );
+		game.physics.arcade.collide(ghost, platforms );
+
+
+
+		while(starCount == 0)
+		{
+				//  Create a star inside of the 'stars' grou
+				starCount++;
+
+				var selector = Math.floor(Math.random() * 20);
+				if(selector == 0)var star = stars.create(100,100, 'star');
+				if(selector == 2)var star = stars.create(210,100, 'star');
+				if(selector == 3)var star = stars.create(350,100, 'star');
+				if(selector == 4)var star = stars.create(380,100, 'star');
+				if(selector == 5)var star = stars.create(100,200, 'star');
+				if(selector == 6)var star = stars.create(200,200, 'star');
+				if(selector == 7)var star = stars.create(350,200, 'star');
+				if(selector == 8)var star = stars.create(380,200, 'star');
+				if(selector == 9)var star = stars.create(100,250, 'star');
+				if(selector == 10)var star = stars.create(200,250, 'star');
+				if(selector == 11)var star = stars.create(350,250, 'star');
+				if(selector == 12)var star = stars.create(380,250, 'star');
+				if(selector == 13)var star = stars.create(100,350, 'star');
+				if(selector == 14)var star = stars.create(200,350, 'star');
+				if(selector == 15)var star = stars.create(350,350, 'star');
+				if(selector == 16)var star = stars.create(380,350, 'star');
+				if(selector == 17)var star = stars.create(100,400, 'star');
+				if(selector == 18)var star = stars.create(200,400, 'star');
+				if(selector == 19)var star = stars.create(350,400, 'star');
+				if(selector == 20)var star = stars.create(380,400, 'star');
+
+		}
 
 
     //  Reset the players velocity (movement)
@@ -226,6 +259,7 @@ function preload() { //our setup
 
 		    // Removes the star from the screen
 		    star.kill();
+				starCount--;
 
 		    //  Add and update the score
 		    score += 10;
@@ -234,8 +268,17 @@ function preload() { //our setup
 		}
 		function die(player, ghost){
 			player.kill();
+			location.reload();
+
+		}
+		function win(){
+			if (score == 100) {
+				game.add.text(190, 200, 'YOU WIN', { fontSize: '100px', fill: '#100' });
+				ghost.kill();
+			}
 		}
 		followPlayer();
+		win();
 
 
 
