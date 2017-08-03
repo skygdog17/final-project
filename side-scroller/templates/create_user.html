@@ -9,6 +9,9 @@
     <h1> Create A User</h1>
     <form method=post><label>
       <p>Create a username: <input type="text" name="new_user"></p>
+      {% if yes == "It is" %}
+        <p>Sorry that name is taken or not valid. Try another one.</p>
+      {% endif %}
       <p>Enter in a password: <input type="text" name="password_c1"></p>
       <p>Confirm your password: <input type="text" name="password_c2"></p>
       <p>Enter character type: <input type="text" name="character_type"></p>

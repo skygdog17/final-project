@@ -61,9 +61,8 @@ class SignInHandler(webapp2.RequestHandler):
                     template = jinja_environment.get_template('templates/sign_in.html')
                     self.response.out.write(template.render())
                 else:
-                    template = jinja_environment.get_template('templates/homepage.html')
+                    template = jinja_environment.get_template('templates/error.html')
                     self.response.out.write(template.render())
-                    self.response.out.write("<br> You're already logged in why don't you play the game?")
         else:
             template = jinja_environment.get_template('templates/sign_in.html')
             self.response.out.write(template.render())
@@ -73,7 +72,7 @@ class SignInHandler(webapp2.RequestHandler):
         results = User.query(User.username == user).fetch()
         one_true_password = ""
         yes = {
-            "Correct": ""
+            "Correct": True
         }
         for result in results:
             if result.password == passw:
@@ -85,19 +84,26 @@ class SignInHandler(webapp2.RequestHandler):
             self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/sign_in.html')
-            yes["Correct"]="That's wrong."
+            yes["Correct"]=False
             self.response.write(template.render(yes))
+
+class ForgotPasswordHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/forgot_password.html')
+        self.response.out.write(template.render())
+
 
 class LogOutHandler(webapp2.RequestHandler):
     def get(self):
-        current_users = CurrentUser.query().order(CurrentUser.accessed).fetch(limit = 1)
+        current_users = CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1)
         for current_user in current_users:
             if current_user.current_username != "" and current_user.current_username != "no one":
                 end_session = CurrentUser(current_username = "no one", accessed = datetime.datetime.now())
                 end_session.put()
-                sel.response.write("You've successfully logged out.")
+                self.response.write("You've successfully logged out.")
             else:
-                self.response.out.write("You might want to log in before logging out.")
+                template = jinja_environment.get_template('templates/error.html')
+                self.response.out.write(template.render())
 
 class ScoreboardHandler(webapp2.RequestHandler):
     def get(self):
@@ -147,9 +153,8 @@ class CreateUserHandler(webapp2.RequestHandler):
                     template = jinja_environment.get_template('templates/create_user.html')
                     self.response.write(template.render())
                 else:
-                    template = jinja_environment.get_template('templates/homepage.html')
+                    template = jinja_environment.get_template('templates/error.html')
                     self.response.out.write(template.render())
-                    self.response.out.write("<br> You're already logged in why don't you play the game?")
         else:
             template = jinja_environment.get_template('templates/create_user.html')
             self.response.write(template.render())
@@ -159,11 +164,16 @@ class CreateUserHandler(webapp2.RequestHandler):
         request_check = self.request.get("password_c2")
         request_character = self.request.get("character_type")
         copy_users = User.query().fetch()
+        taken = {
+            "yes": ""
+        }
         for copy_user in copy_users:
-            if request_user == copy_user.username:
-                self.response.write("Sorry. Taken!")
+            if request_user == copy_user.username or request_user == "" or len(request_user) < 4:
+                taken["yes"] = "It is"
+                template = jinja_environment.get_template('templates/create_user.html')
+                self.response.write(template.render(taken))
                 return
-        if request_password == request_check:
+        if request_password == request_check and len(request_password) > 3:
             character_info = {
                 "user1": request_user,
                 "password1": request_password,
@@ -178,7 +188,6 @@ class CreateUserHandler(webapp2.RequestHandler):
             self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/create_user.html')
-            self.response.out.write("Error: Confirm your password correctly.")
             self.response.out.write(template.render())
 
 app = webapp2.WSGIApplication([
@@ -186,5 +195,7 @@ app = webapp2.WSGIApplication([
     ('/sign-in', SignInHandler),
     ('/play', PlayHandler),
     ('/create-user', CreateUserHandler),
-    ('/leaderboard', ScoreboardHandler)
+    ('/leaderboard', ScoreboardHandler),
+    ('/log-out', LogOutHandler),
+    ('/forgot-password', ForgotPasswordHandler)
 ], debug=True)
