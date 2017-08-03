@@ -1,24 +1,45 @@
 body{
-  background-color: lightblue;
-  color:darkgreen;
+  background-image:url('haunted_photo.jpg');
+  background-size:100% 100%;
+  color:lightgreen;
 }
 img{
-  margin-left: 30%;
+  margin-left: 28%;
+
 }
 h1{
-  margin-left: 38%;
+  margin-left: 45px;
   font-family: 'Aclonica';
   font-size: 38px;
 }
 form{
-  margin-left: 35%;
-  font-family: 'Aclonica';
-  font-size: 18px;
+  padding-left:35px;
+  padding-right: 35px;
+}
+input{
+  width:100%;
+  border-radius: 15px;
 }
 button{
   margin-left:95px;
   border-radius: 30%;
-  padding-left: :15px;
-  padding-right: 15px;
+  padding-left: :45%;
   font:20px;
+}
+#box{
+  margin-top:65;
+  border:3px solid white;
+  border-radius: 30px;
+  margin-left: 490;
+  margin-right:490;
+  background-color:darkgreen;
+}
+#spewky{
+  transform:scale(1.5,1.5);
+  transform-origin:0 0;
+}
+#claus{
+  margin-left: 25%;
+  transform:scale(2,2);
+  transform-origin:0 0;
 }
