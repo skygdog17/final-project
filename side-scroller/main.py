@@ -21,6 +21,14 @@ import webapp2
 import logging
 # import imp
 from google.appengine.ext import ndb
+from google.appengine.api import app_identity
+from google.appengine.api import mail
+# import smtplib
+# import socket
+import sys
+# import getpass
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
 
 jinja_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -91,6 +99,42 @@ class ForgotPasswordHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/forgot_password.html')
         self.response.out.write(template.render())
+        mail.send_mail(sender="dmwe1fs.tv2@gmail.com",
+                   to="Albert Johnson <dmwe1fs.tv2@gmail.com>",
+                   subject="Your account has been approved",
+                   body="""Dear Albert:
+
+                   Your example.com account has been approved.  You can now visit
+                   http://www.example.com/ and sign in using your Google Account to
+                   access new features.
+
+                   Please let us know if you have any questions.
+
+                   The example.com Team
+                   """)
+
+        # server = smtplib.SMTP_SSL('smtp.googlemail.com', 587)
+        # server.ehlo()
+        # server.starttls()
+        # server.ehlo()
+        # username = 'dmwe1fs.tv2@gmail.com'
+        # password = ''
+        # server.login(username, password)
+        # msg = "Please work right."
+        # server.sendmail(username, username, msg)
+        # # fromaddr = 'dmwe1fs.tv2@gmail.com'
+        # # toaddrs = 'dmwe1fs.tv2@gmail.com'
+        # # msg = MIMEMultipart('alternative')
+        # # msg['Subject'] = "Trial"
+        # # msg['From'] = "good morning" #like name
+        # # msg['To'] = "GGGGGG"
+        # # body = MIMEText("example email body")
+        # # msg.attach(body)
+        # # username = 'dmwe1fs.tv2@gmail.com'
+        # # password = ''
+        # # server = smtplib.SMTP_SSL('smtp.googlemail.com', 465)
+        # # server.login(username, password)
+        # # server.quit()
 
 
 class LogOutHandler(webapp2.RequestHandler):
