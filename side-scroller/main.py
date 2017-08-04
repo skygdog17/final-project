@@ -90,7 +90,7 @@ class SignInHandler(webapp2.RequestHandler):
         if one_true_password == passw:
             new_session = CurrentUser(current_username = user, accessed = datetime.datetime.now())
             new_session.put()
-            template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+            template = jinja_environment.get_template('templates/stats.html')
             self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/sign_in.html')
@@ -169,6 +169,7 @@ class StatsHandler(webapp2.RequestHandler):
             else:
                 template = jinja_environment.get_template('templates/error.html')
                 self.response.out.write(template.render())
+
 class InstructionsHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/instructions.html')
@@ -251,6 +252,7 @@ class CreateUserHandler(webapp2.RequestHandler):
         taken = {
             "yes": ""
         }
+        # person = False
         for copy_user in copy_users:
             if request_user == copy_user.username or request_user == "" or len(request_user) < 4 or request_user == "guest":
                 taken["yes"] = "It is"
@@ -267,9 +269,9 @@ class CreateUserHandler(webapp2.RequestHandler):
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
-            template = jinja_environment.get_template('templates/homepage.html')
-            # template = jinja_environment.get_template('Erkhes-Stuff/game.html')
-            self.response.write(template.render())
+            # person = True
+            # template = jinja_environment.get_template('templates/stats.html')
+            # self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/create_user.html')
             self.response.out.write(template.render())
