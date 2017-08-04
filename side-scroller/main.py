@@ -147,7 +147,8 @@ class LogOutHandler(webapp2.RequestHandler):
             if current_user.current_username != "" and current_user.current_username != "guest":
                 end_session = CurrentUser(current_username = "guest", accessed = datetime.datetime.now())
                 end_session.put()
-                self.response.write("You've successfully logged out.")
+                template = jinja_environment.get_template('templates/log_out.html')
+                self.response.out.write(template.render())
             else:
                 template = jinja_environment.get_template('templates/error.html')
                 self.response.out.write(template.render())
@@ -274,10 +275,7 @@ class CreateUserHandler(webapp2.RequestHandler):
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
             # help_me["person"] = True
-            template = jinja_environment.get_template('templates/create_user.html')
-            # self.response.write(template.render(help_me))
-            # template = jinja_environment.get_template('templates/stats.html')
-            self.response.write(template.render())
+            self.redirect("/stats")
         else:
             # taken["yes"] = "It is"
             template = jinja_environment.get_template('templates/create_user.html')
