@@ -48,7 +48,7 @@
     new Room(30, 40, 1.55, 1.4) -->
  </script>
 
-<a href="game.html" id = 'playagain'>PLAY AGAIN</a>
+<a href="game.html" id = 'playagain'>PLAY AGAIN?</a>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -201,6 +201,7 @@ function preload() { //our setup
 	//cheskc to see if player overlaps with ghost
 		game.physics.arcade.overlap(player, ghost, die, null, this);
 		game.physics.arcade.collide(ghost, platforms );
+		game.physics.arcade.collide(ghost, stars);
 
 
 
@@ -281,7 +282,7 @@ function preload() { //our setup
 
 		}
 		function win(){
-			if (score == 10) {
+			if (score == 70) {
 				game.add.text(190, 200, 'YOU WIN', { fontSize: '100px', fill: '#100' });
 				ghost.kill();
 				$('#playagain').show();
