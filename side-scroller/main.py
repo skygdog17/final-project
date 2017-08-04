@@ -165,7 +165,7 @@ class StatsHandler(webapp2.RequestHandler):
                         "user_wins" : person.wins,
                         "user_deaths" : person.deaths
                         }
-                self.response.out.write(template.render(user_stats))
+            self.response.out.write(template.render())
             else:
                 template = jinja_environment.get_template('templates/error.html')
                 self.response.out.write(template.render())
