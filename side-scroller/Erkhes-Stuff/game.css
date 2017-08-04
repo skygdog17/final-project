@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #playagain
 {
   text-decoration: none;
@@ -19,4 +20,9 @@ canvas
 {
   margin:0 auto;
 
+=======
+body {
+    -moz-transform: scale(1.3); /* for Firefox, default 1*/
+    zoom:130%; /* For Chrome, IE, default 100%*/
+>>>>>>> 9b4a03c53634dfc42d7aebcca7e0c6b6ad205670
 }

@@ -3,15 +3,23 @@
     <title>Spewky</title>
   </head>
   <body>
+    <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    <link rel = "stylesheet" href="resources/create_user.css">
+    <img  id = 'spewky' src = 'resources/spewky.png'>
+
+    <div id = 'box'>
     <h1>Welcome {{ user }}</h1>
     <h3>High Score: {{ user_high_score }}</h3>
     <h3>Total Wins: {{ user_wins }}</h3>
     <h3>Total Deaths: {{ user_deaths }}</h3>
-    <form method=post>
-      <button>Play</button>
+  </div>
+
+    <form action="/play">
+      <button id = 'homePageButtons'> Play</button>
     </form>
     <form action="/leaderboard">
-      <button>Leaderboard</button>
+      <button id = 'homePageButtons'>Leaderboard</button>
+      <img id = 'claus' src = 'resources/claus_right.png'>
     </form>
   </body>
 </html>
