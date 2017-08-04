@@ -1,11 +1,22 @@
-.viewport {
-  width: 256px;   /* Viewport Width */
-  height: 256px;   /* Viewport Height (~ 199.42px) */
-  margin: 2em auto;   /* Little margin */
-  background: transparent url('image/claus-sprite.png') 0 0 no-repeat;   /* Our sprite as viewport background */
-  animation: catwalk 1s steps(12) infinite; /* The Animation */
+#playagain
+{
+  text-decoration: none;
+  padding: 10px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  display: none;
 }
 
-@keyframes catwalk {
-  100% { background-position: 0 -239x; }
+body
+{
+  background-color: black;
+  position: relative;
+}
+
+canvas
+{
+  margin:0 auto;
+
 }
