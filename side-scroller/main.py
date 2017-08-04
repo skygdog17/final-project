@@ -43,7 +43,7 @@ class User(ndb.Model):
     e_mail = ndb.StringProperty()
     deaths = ndb.IntegerProperty()
     wins = ndb.IntegerProperty()
-    scores = ndb.IntegerProperty()
+    # scores = ndb.IntegerProperty()
     #(repeated=True)
     high_score = ndb.IntegerProperty()
     # character = ndb.StringProperty()
@@ -90,8 +90,9 @@ class SignInHandler(webapp2.RequestHandler):
         if one_true_password == passw:
             new_session = CurrentUser(current_username = user, accessed = datetime.datetime.now())
             new_session.put()
-            template = jinja_environment.get_template('templates/stats.html')
-            self.response.write(template.render())
+            # template = jinja_environment.get_template('templates/stats.html')
+            # self.response.write(template.render())
+            self.redirect("/stats")
         else:
             template = jinja_environment.get_template('templates/sign_in.html')
             yes["Correct"]=False
@@ -165,7 +166,7 @@ class StatsHandler(webapp2.RequestHandler):
                         "user_wins" : person.wins,
                         "user_deaths" : person.deaths
                         }
-            self.response.out.write(template.render())
+                self.response.out.write(template.render(user_stats))
             else:
                 template = jinja_environment.get_template('templates/error.html')
                 self.response.out.write(template.render())
@@ -268,7 +269,7 @@ class CreateUserHandler(webapp2.RequestHandler):
                 "password1": request_password,
                 "e_mail1": request_e_mail
             }
-            new_guy = User(username = request_user, password = request_password, e_mail = request_e_mail, deaths = 0, wins = 0, high_score = 0, scores = 0)
+            new_guy = User(username = request_user, password = request_password, e_mail = request_e_mail, deaths = 0, wins = 0, high_score = 0)
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
