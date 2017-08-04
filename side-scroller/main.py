@@ -169,6 +169,10 @@ class StatsHandler(webapp2.RequestHandler):
             else:
                 template = jinja_environment.get_template('templates/error.html')
                 self.response.out.write(template.render())
+class InstructionsHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/instructions.html')
+        self.response.out.write(template.render())
 
 class ScoreboardHandler(webapp2.RequestHandler):
     def get(self):
@@ -272,6 +276,7 @@ app = webapp2.WSGIApplication([
     ('/play', PlayHandler),
     ('/create-user', CreateUserHandler),
     ('/leaderboard', ScoreboardHandler),
+    ('/instructions', InstructionsHandler),
     ('/log-out', LogOutHandler),
     ('/forgot-password', ForgotPasswordHandler),
     ('/stats', StatsHandler)
