@@ -77,6 +77,7 @@ function preload() { //our setup
 		game.physics.startSystem(Phaser.Physics.ARCADE);
     background = game.add.sprite(-10,-20,'sky');
 		background.scale.setTo(1.55,1.55)
+		background.tint = 0.6 * 0xffffff;
 		//creation of environment
     platforms = game.add.group();
     //top and bottom
@@ -184,10 +185,10 @@ function preload() { //our setup
 
 	//follows players around
 	function followPlayer(){
-			var ghost_speed = 30;
+			var ghost_speed = 25;
 			if(player.body.x < ghost.body.x){ghost.body.velocity.x = ghost_speed * -1;}
 			else{ghost.body.velocity.x = ghost_speed;}
-			if(player.body.y < ghost.body.y){ghost.body.velocity.y = ghost_speed * -0.4;}
+			if(player.body.y < ghost.body.y){ghost.body.velocity.y = ghost_speed * -1;}
 			else{ghost.body.velocity.y = ghost_speed;}
 	}
 
@@ -212,6 +213,7 @@ function preload() { //our setup
 
 				var selector = Math.floor(Math.random() * 20);
 				if(selector == 0)var star = stars.create(100,100, 'star');
+				if(selector == 1)var star = stars.create(100,100, 'star');
 				if(selector == 2)var star = stars.create(210,100, 'star');
 				if(selector == 3)var star = stars.create(350,100, 'star');
 				if(selector == 4)var star = stars.create(380,100, 'star');
@@ -231,6 +233,9 @@ function preload() { //our setup
 				if(selector == 18)var star = stars.create(200,400, 'star');
 				if(selector == 19)var star = stars.create(350,400, 'star');
 				if(selector == 20)var star = stars.create(380,400, 'star');
+
+				// game.add.text(200, 100, 'selector: 0', { fontSize: '32px', fill: '#000' });
+
 
 		}
 
