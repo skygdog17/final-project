@@ -1,31 +1,43 @@
+#li{
+  font-size: 17px;
+   font-family: "Times New Roman";
+   margin-left: -10%;
+   margin-right: 10%;
+   font-weight: normal;
+}
 body{
   background-image:url('background2.gif');
   background-size:100% 100%;
   color:white;
 }
+
 img{
   margin-left: 28%;
-
 }
+
 h1{
   margin-left: 45px;
   font-family: 'Aclonica';
   font-size: 38px;
 }
+
 form{
   padding-left:35px;
   padding-right: 35px;
 }
+
 input{
   width:100%;
   border-radius: 15px;
 }
+
 button{
   margin-left:95px;
   border-radius: 30%;
   padding-left: :45%;
   font:20px;
 }
+
 #box{
   margin-top:65;
   border:3px solid white;
@@ -34,10 +46,12 @@ button{
   margin-right:490;
   background-color:navy;
 }
+
 #spewky{
   transform:scale(1.5,1.5);
   transform-origin:0 0;
 }
+
 #claus{
   margin-left: 32%;
   transform:scale(2,2);
@@ -47,11 +61,13 @@ button{
 #button{
   margin-top:70px;
 }
+
 #text{
   width:50%;
   margin-left: 27%;
   margin-top: 40px;
 }
+
 #homePageButtons{
   width:225px;
   height:55px;
@@ -64,5 +80,4 @@ button{
   background-color:navy;
   color:white;
   font-family: 'Aclonica';
-
 }
