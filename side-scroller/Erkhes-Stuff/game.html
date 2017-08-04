@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-    <title>game and stuff</title>
+    <title>Spewky</title>
 		<script type="text/javascript" src="js/phaser.min.js"></script>
+		<link rel="stylesheet" href="game.css">
     <style type="text/css">body {margin: 1;}
+			body {
+	    -moz-transform: scale(1.3); /* for Firefox, default 1*/
+	    zoom:130%; /* For Chrome, IE, default 100%*/
+			}
   </style>
+
 </head>
 <link rel="stylesheet" href="game.css">
 <body>
@@ -40,8 +46,10 @@
     };
 
     new Room(30, 40, 1.55, 1.4) -->
+ </script>
 
-  </script>
+<a href="game.html" id = 'playagain'>PLAY AGAIN</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 
 var game = new Phaser.Game(480, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
@@ -130,7 +138,7 @@ function preload() { //our setup
 
     // OUR HERO!!!
     player = game.add.sprite(215,400, 'claus');
-		player.scale.setTo(0.75,0.75);
+		player.scale.setTo(0.60,0.60);
     game.physics.enable(player);
     player.animations.add('left', [4, 5, 6, 7], 10, true);
     player.animations.add('right', [8, 9, 10, 11], 10, true);
@@ -148,7 +156,7 @@ function preload() { //our setup
 		// ghost.scale.setTo(1.1,1.1);
 
 		ghost = game.add.sprite(400,200,'ghost');
-		ghost.scale.setTo(0.8,0.8);
+		ghost.scale.setTo(0.7,0.7);
 
 		ghost.enableBody = true;
 		game.physics.enable(ghost);
@@ -273,9 +281,10 @@ function preload() { //our setup
 
 		}
 		function win(){
-			if (score == 100) {
+			if (score == 10) {
 				game.add.text(190, 200, 'YOU WIN', { fontSize: '100px', fill: '#100' });
 				ghost.kill();
+				$('#playagain').show();
 			}
 		}
 		followPlayer();

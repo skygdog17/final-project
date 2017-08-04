@@ -90,7 +90,7 @@ class SignInHandler(webapp2.RequestHandler):
         if one_true_password == passw:
             new_session = CurrentUser(current_username = user, accessed = datetime.datetime.now())
             new_session.put()
-            template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+            template = jinja_environment.get_template('templates/stats.html')
             self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/sign_in.html')
@@ -101,7 +101,7 @@ class ForgotPasswordHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/forgot_password.html')
         self.response.out.write(template.render())
-        mail.send_mail(sender="dmwe1fs.tv2@gmail.com",
+        mail.send_mail(sender="noreply@side-scroller.appspot.com",
                    to="Albert Johnson <dmwe1fs.tv2@gmail.com>",
                    subject="Your account has been approved",
                    body="""Dear Albert:
@@ -169,6 +169,7 @@ class StatsHandler(webapp2.RequestHandler):
             else:
                 template = jinja_environment.get_template('templates/error.html')
                 self.response.out.write(template.render())
+
 class InstructionsHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/instructions.html')
@@ -199,28 +200,32 @@ class ScoreboardHandler(webapp2.RequestHandler):
 
 class PlayHandler(webapp2.RequestHandler):
     def get(self):
-        this_username = CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1)
-        for current_man in this_username:
-            if current_man.current_username != "guest" and current_man.current_username != "":
-                template = jinja_environment.get_template('templates/stats.html')
-                # user_stats = {
-                #     "user" : person.username,
-                #     "user_high_score" : person.high_score,
-                #     "user_wins" : person.wins,
-                #     "user_deaths" : person.deaths
-                #     }
-                self.response.out.write(template.render())
-                user_scores = User.query(User.username == current_man.current_username).fetch()
-                for user_score in user_scores:
-                    if user_score.scores > user_score.high_score:
-                        user_score.high_score = user_score.scores
-                        user_score.put()
-        # game.html = imp.load_source('game.html', '../Erkhes-Stuff/game.html')
-        # print game.html.read()
-            else:
-                template = jinja_environment.get_template('Erkhes-Stuff/game.html')
-                self.response.out.write(template.render())
-    def post(self):
+        # if CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1) != "":
+        #     this_username = CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1)
+        #     for current_man in this_username:
+        #         if current_man.current_username != "guest" and current_man.current_username != "":
+        #             template = jinja_environment.get_template('templates/stats.html')
+        #         # user_stats = {
+        #         #     "user" : person.username,
+        #         #     "user_high_score" : person.high_score,
+        #         #     "user_wins" : person.wins,
+        #         #     "user_deaths" : person.deaths
+        #         #     }
+        #             self.response.out.write(template.render())
+        #             user_scores = User.query(User.username == current_man.current_username).fetch()
+        #             for user_score in user_scores:
+        #                 if user_score.scores > user_score.high_score:
+        #                     user_score.high_score = user_score.scores
+        #                     user_score.put()
+        # # game.html = imp.load_source('game.html', '../Erkhes-Stuff/game.html')
+        # # print game.html.read()
+        #         else:
+        #             template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+        #             self.response.out.write(template.render())
+        # else:
+        #     template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+        #     self.response.out.write(template.render())
+    # def post(self):
         template = jinja_environment.get_template('Erkhes-Stuff/game.html')
         self.response.out.write(template.render())
 
@@ -247,6 +252,9 @@ class CreateUserHandler(webapp2.RequestHandler):
         taken = {
             "yes": ""
         }
+        help_me = {
+            "person" : False
+            }
         for copy_user in copy_users:
             if request_user == copy_user.username or request_user == "" or len(request_user) < 4 or request_user == "guest":
                 taken["yes"] = "It is"
@@ -263,9 +271,11 @@ class CreateUserHandler(webapp2.RequestHandler):
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
-            template = jinja_environment.get_template('templates/homepage.html')
-            # template = jinja_environment.get_template('Erkhes-Stuff/game.html')
-            self.response.write(template.render())
+            help_me["person"] = True
+            template = jinja_environment.get_template('templates/create_user.html')
+            self.response.write(template.render(help_me))
+            # template = jinja_environment.get_template('templates/stats.html')
+            # self.response.write(template.render())
         else:
             template = jinja_environment.get_template('templates/create_user.html')
             self.response.out.write(template.render())
