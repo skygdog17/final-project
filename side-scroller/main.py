@@ -252,7 +252,7 @@ class CreateUserHandler(webapp2.RequestHandler):
         taken = {
             "yes": ""
         }
-        # person = False
+        person = False
         for copy_user in copy_users:
             if request_user == copy_user.username or request_user == "" or len(request_user) < 4 or request_user == "guest":
                 taken["yes"] = "It is"
@@ -269,7 +269,7 @@ class CreateUserHandler(webapp2.RequestHandler):
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
-            # person = True
+            person = True
             # template = jinja_environment.get_template('templates/stats.html')
             # self.response.write(template.render())
         else:
