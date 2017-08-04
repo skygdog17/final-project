@@ -101,7 +101,7 @@ class ForgotPasswordHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/forgot_password.html')
         self.response.out.write(template.render())
-        mail.send_mail(sender="dmwe1fs.tv2@gmail.com",
+        mail.send_mail(sender="noreply@side-scroller.appspot.com",
                    to="Albert Johnson <dmwe1fs.tv2@gmail.com>",
                    subject="Your account has been approved",
                    body="""Dear Albert:
@@ -195,28 +195,32 @@ class ScoreboardHandler(webapp2.RequestHandler):
 
 class PlayHandler(webapp2.RequestHandler):
     def get(self):
-        this_username = CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1)
-        for current_man in this_username:
-            if current_man.current_username != "guest" and current_man.current_username != "":
-                template = jinja_environment.get_template('templates/stats.html')
-                # user_stats = {
-                #     "user" : person.username,
-                #     "user_high_score" : person.high_score,
-                #     "user_wins" : person.wins,
-                #     "user_deaths" : person.deaths
-                #     }
-                self.response.out.write(template.render())
-                user_scores = User.query(User.username == current_man.current_username).fetch()
-                for user_score in user_scores:
-                    if user_score.scores > user_score.high_score:
-                        user_score.high_score = user_score.scores
-                        user_score.put()
-        # game.html = imp.load_source('game.html', '../Erkhes-Stuff/game.html')
-        # print game.html.read()
-            else:
-                template = jinja_environment.get_template('Erkhes-Stuff/game.html')
-                self.response.out.write(template.render())
-    def post(self):
+        # if CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1) != "":
+        #     this_username = CurrentUser.query().order(-CurrentUser.accessed).fetch(limit = 1)
+        #     for current_man in this_username:
+        #         if current_man.current_username != "guest" and current_man.current_username != "":
+        #             template = jinja_environment.get_template('templates/stats.html')
+        #         # user_stats = {
+        #         #     "user" : person.username,
+        #         #     "user_high_score" : person.high_score,
+        #         #     "user_wins" : person.wins,
+        #         #     "user_deaths" : person.deaths
+        #         #     }
+        #             self.response.out.write(template.render())
+        #             user_scores = User.query(User.username == current_man.current_username).fetch()
+        #             for user_score in user_scores:
+        #                 if user_score.scores > user_score.high_score:
+        #                     user_score.high_score = user_score.scores
+        #                     user_score.put()
+        # # game.html = imp.load_source('game.html', '../Erkhes-Stuff/game.html')
+        # # print game.html.read()
+        #         else:
+        #             template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+        #             self.response.out.write(template.render())
+        # else:
+        #     template = jinja_environment.get_template('Erkhes-Stuff/game.html')
+        #     self.response.out.write(template.render())
+    # def post(self):
         template = jinja_environment.get_template('Erkhes-Stuff/game.html')
         self.response.out.write(template.render())
 
