@@ -236,30 +236,31 @@ class CreateUserHandler(webapp2.RequestHandler):
             for person_here in people_here:
                 if person_here.current_username == "guest" or person_here.current_username == "":
                     template = jinja_environment.get_template('templates/create_user.html')
-                    self.response.write(template.render())
+                    self.response.out.write(template.render())
                 else:
                     template = jinja_environment.get_template('templates/error.html')
                     self.response.out.write(template.render())
         else:
             template = jinja_environment.get_template('templates/create_user.html')
-            self.response.write(template.render())
+            self.response.out.write(template.render())
     def post(self):
         request_user = self.request.get("new_user")
         request_password = self.request.get("password_c1")
         request_check = self.request.get("password_c2")
         request_e_mail = self.request.get("e_mail")
         copy_users = User.query().fetch()
-        taken = {
-            "yes": ""
-        }
-        help_me = {
-            "person" : False
-            }
+        # taken = {
+        #     "yes": ""
+        # }
+        # help_me = {
+        #     "person" : False
+        #     }
         for copy_user in copy_users:
             if request_user == copy_user.username or request_user == "" or len(request_user) < 4 or request_user == "guest":
-                taken["yes"] = "It is"
+                # taken["yes"] = "It is"
                 template = jinja_environment.get_template('templates/create_user.html')
-                self.response.write(template.render(taken))
+                self.response.out.write(template.render())
+                # self.response.write(template.render(taken))
                 return
         if request_password == request_check and len(request_password) > 3:
             character_info = {
@@ -271,14 +272,17 @@ class CreateUserHandler(webapp2.RequestHandler):
             new_guy.put()
             first_session = CurrentUser(current_username = request_user, accessed = datetime.datetime.now())
             first_session.put()
-            help_me["person"] = True
+            # help_me["person"] = True
             template = jinja_environment.get_template('templates/create_user.html')
-            self.response.write(template.render(help_me))
+            # self.response.write(template.render(help_me))
             # template = jinja_environment.get_template('templates/stats.html')
-            # self.response.write(template.render())
+            self.response.write(template.render())
         else:
+            # taken["yes"] = "It is"
             template = jinja_environment.get_template('templates/create_user.html')
+            # self.response.write(template.render(taken))
             self.response.out.write(template.render())
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
