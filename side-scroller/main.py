@@ -251,18 +251,17 @@ class CreateUserHandler(webapp2.RequestHandler):
         request_check = self.request.get("password_c2")
         request_e_mail = self.request.get("e_mail")
         copy_users = User.query().fetch()
-        # taken = {
-        #     "yes": ""
-        # }
+        taken = {
+            "yes": ""
+        }
         # help_me = {
         #     "person" : False
         #     }
         for copy_user in copy_users:
             if request_user == copy_user.username or request_user == "" or len(request_user) < 4 or request_user == "guest":
-                # taken["yes"] = "It is"
+                taken["yes"] = "It is"
                 template = jinja_environment.get_template('templates/create_user.html')
-                self.response.out.write(template.render())
-                # self.response.write(template.render(taken))
+                self.response.write(template.render(taken))
                 return
         if request_password == request_check and len(request_password) > 3:
             character_info = {
