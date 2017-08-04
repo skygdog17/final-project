@@ -102,19 +102,19 @@ class ForgotPasswordHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_environment.get_template('templates/forgot_password.html')
         self.response.out.write(template.render())
-        mail.send_mail(sender="noreply@side-scroller.appspot.com",
-                   to="Albert Johnson <dmwe1fs.tv2@gmail.com>",
-                   subject="Your account has been approved",
-                   body="""Dear Albert:
-
-                   Your example.com account has been approved.  You can now visit
-                   http://www.example.com/ and sign in using your Google Account to
-                   access new features.
-
-                   Please let us know if you have any questions.
-
-                   The example.com Team
-                   """)
+        # mail.send_mail(sender="noreply@side-scroller.appspot.com",
+        #            to="Albert Johnson <dmwe1fs.tv2@gmail.com>",
+        #            subject="Your account has been approved",
+        #            body="""Dear Albert:
+        #
+        #            Your example.com account has been approved.  You can now visit
+        #            http://www.example.com/ and sign in using your Google Account to
+        #            access new features.
+        #
+        #            Please let us know if you have any questions.
+        #
+        #            The example.com Team
+        #            """)
 
         # server = smtplib.SMTP_SSL('smtp.googlemail.com', 587)
         # server.ehlo()
